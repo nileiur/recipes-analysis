@@ -132,6 +132,8 @@ I decided to stick with linear regression, but engineered the features in severa
 
 4) Incorporated regularization into the model using ridge regression: Ridge regression shrinks the coefficients of less significant features towards zero to prevent overfitting. Given how high the optimal alpha penalty ended up being, I believed this played the greatest role in improving my model.
 
+5) Manually added an interaction term, steps * calories: I thought that there might be a correlation between number of steps and calories in a recipe, so I decided to manually include this term so that it would always be considered.
+
 I also created a grid with the following hyperparameters:
 1) Polynomial Features: I decided to check degrees 1, 2, and 3 (I hypothesized that any higher values would likely lead to overfitting), and had 2 parameters to check whether including interactions would improve model performance or not.
 
