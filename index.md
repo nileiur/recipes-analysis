@@ -2,9 +2,6 @@
 
 By Emily Lin, linemily@umich.edu
 ---
-title: What Factors Influence Recipe Ratings?
-description: Analysis of a recipes dataset.
----
 
 ## Introduction
 
@@ -35,6 +32,8 @@ Below is a depiction of the first five rows of the cleaned dataframe:
 After cleaning the data, I performed EDA on the recipes dataset. I analyzed the distributions of the 'avg_ratings" and 'n_steps' columns and made the following observations: 
 
 The vast majority of recipes earned a 5 rating, meaning that there is likely to be less data/less reliable data showing what sort of recipes receive very low ratings (below 3 stars).
+
+Below is a graph of the distribution of the 'avg_ratings' column.
  <iframe
  src="assets/rating-dist.html"
  width="800"
@@ -52,7 +51,7 @@ Below is a graph of the distribution of the 'n_steps' column. We see a strong ri
 
 I then opted to investigate the relationship between the number of steps required to make a recipe and its average rating, as well as the calorie count of a recipe vs its average rating.
 
-When investigating the relationship between steps and average rating, I opted to sort the data into bins loosely based on the distribution of steps as shown in the graph above. I then produced the graph below, which illustrates the aforementioned relationship. We observe that the median does not change between the different bins, but recipes with 5-10 steps and 10-20 steps have a slightly wider spread of values. 
+When investigating the relationship between steps and average rating, I opted to sort the data into bins loosely based on the distribution of steps as shown in the graph below. I then produced the graph below, which illustrates the aforementioned relationship. We observe that the median does not change between the different bins, but recipes with 5-10 steps and 10-20 steps have a slightly wider spread of values. 
 
  <iframe
  src="assets/steps-vs-rating.html"
@@ -61,7 +60,7 @@ When investigating the relationship between steps and average rating, I opted to
  frameborder="0"
  ></iframe>
 
-I did something similar when investigating the relationship between calories and average rating, binning calories based on the fact that most recipes had around 350-450 calories (the mean number of calories across recipes was 427, while the median was 305). When plotting, I observed that recipes with 250-650 calories had a slightly wider spread than recipes outside this calorie range.
+I did something similar when investigating the relationship between calories and average rating, binning calories based on the fact that most recipes had around 350-450 calories (the mean number of calories across recipes was 427, while the median was 305). After creating the plot below, I observed that recipes with 250-650 calories had a slightly wider spread than recipes outside this calorie range.
 
  <iframe
  src="assets/cals-vs-rating.html"
@@ -142,6 +141,3 @@ Ultimately I used GridSearchCV to fit the model with 5-fold cross validation, as
 3) Alpha for regularization: 1000
 
 I saw a very small improvement in the model; test MSE went from 0.41129 in the baseline model to 0.41114 in the final model. While this is a step in the right direction, there is definitely still room for improvement, and it might be worth reexamining what features I want to include in the model in the future.
-
----
-This was a project for EECS 398: Practical Data Science at the University of Michigan, Winter 2025.
