@@ -1,4 +1,5 @@
-# Recipes Analysis
+# What Factors Influence Recipe Ratings?
+
 By Emily Lin, linemily@umich.edu
 ---
 title: What Factors Influence Recipe Ratings?
@@ -14,10 +15,12 @@ Provide an introduction to your dataset, and clearly state the one question your
 I analyzed a dataset of recipes from food.com (called "recipes" from here on out) as well as interactions with these recipes (data about ratings/reviews left by readers, called "interactions" from here on out), downloadable here (maybe). I was curious to see if there were any characteristics influenced whether a certain recipe received a higher or lower rating; this would be helpful for anyone who was casually browsing food.com and wanted highly rated recipes. The total number of rows in the original datasets were 83782 in "recipes" and 731927 in "interactions", and the columns I used for my analysis were:
 
 - 'avg_rating': The average rating of a given recipe. This column was not present in the original data but was created in the process of cleaning the data (see next section)
-- 'tags': user-generated tags for a given recipe; I extracted data about meal type from this field.
-- 'n_steps': Number of steps in the recipe.
-- 'nutrition': Contains nutritional facts about each recipe. I specifically used calorie data.
 
+- 'tags': user-generated tags for a given recipe; I extracted data about meal type from this field.
+
+- 'n_steps': Number of steps in the recipe.
+
+- 'nutrition': Contains nutritional facts about each recipe. I specifically used calorie data.
 
 ---
 
@@ -25,7 +28,7 @@ I analyzed a dataset of recipes from food.com (called "recipes" from here on out
 
 Describe, in detail, the data cleaning steps you took and how they affected your analyses. The steps should be explained in reference to the data generating process. Show the head of your cleaned DataFrame (see Part 2: Report for instructions).
 ...
-I merged the "recipes" and "interactions" datasets by column, keeping recipes and dropping the columns 'date', 'user_id', and 'reviews' (these columns contained user-specific rather than recipe-specific data and were not relevant to my analysis), and added an additional column called 'avg_rating' that averaged all ratings for a given recipe. I also chose to drop all recipes that had a rating of "NaN" (recipes that had no rating), as well as a fake recipe called "How to Preserve a Husband" (since it isn't actually a makeable recipe, I believed it would adversely influence the integrity of the final analysis to include it). Approximately 2.6k recipes had no rating, which only comprised 3.1% of the dataset, so I believe the impact of dropping such recipes is negligible. The total number of rows remaining in the final dataframe was equal to 81172.
+I merged the "recipes" and "interactions" datasets by column, keeping recipes and dropping the columns 'date', 'user_id', and 'reviews' (these columns contained user-specific rather than recipe-specific data and were not relevant to my analysis), and added an additional column called 'avg_rating' that averaged all ratings for a given recipe. I also chose to drop all recipes that had a rating of "NaN" (recipes that had no rating), as well as a fake recipe called "How to Preserve a Husband" (since it isn't actually a makeable recipe, I believed it would adversely influence the integrity of the final analysis to include it). Approximately 2.6k recipes had no rating, which only comprised 3.1% of the dataset, so I believed the impact of dropping such recipes was negligible. The total number of rows remaining in the final dataframe was equal to 81172.
 
 I then hypothesized that the type of meal (breakfast, lunch, dinner, dessert), food group(s) (which I divided into fruits, vegetables, meat, grains, dairy, and sauces), and calorie count that each recipe had would play a role in how the recipe was rated, so for the first two categories, I extracted the corresponding tags from the 'tags' field in the dataset and created new columns for each category that used binary coding depending on if the recipe had the corresponding tag or not (so for example, if a recipe was tagged 'breakfast' then it would have a 1 under the newly-created 'breakfast' column). I also tried to include related tags under a given meal type/food group as well (for example, 'beef' was counted as 'meat'). I also extracted the nutritional information from the tag and created new columns for each field, although I only used the 'calories' field/column in the end. 
 
@@ -93,13 +96,21 @@ Tip: Make sure to hit all of the points above: many Final Projects in the past h
 ...
 
 I initially used a linear regression model, and used all of the following features:
+
 1) 'n_steps'
-2) 'calories' 
+
+2) 'calories'
+
 3) 'breakfast'
+
 4) 'lunch'
+
 5) 'dinner'
+
 6) 'desserts'
+
 7) 'meat'
+
 8) 'vegetables'
 
 'n_steps' and 'calories' are both quantitative, and the remaining features are nominal. All features except the first two were binarily encoded; this was performed during the initial data cleaning when I manually created columns corresponding with these features. I fit the model with 5-fold cross validation, and ended up with a test MSE of 0.41129.
@@ -131,10 +142,12 @@ I also created a grid with the following hyperparameters:
 2) Regularization: I originally only tried alpha values 0.01, 0.1, 1, 10, 100. When I initially ran the model, I noticed that GridSearchCV chose 100 as the best alpha value, so I tried an array that included higher alpha values and found that it chose 1000 as the best alpha value (which probably means that many of the features I chose did not actually contribute to the accuracy of the model).
 
 Ultimately I used GridSearchCV to fit the model with 5-fold cross validation, as before. GridSearchCV found that the best hyperparameters were as follows:
-1) Polynomial degree: 2
-2) Interactions: False (so not considering interactions led to better performance than taking them into account)
-3) Alpha for regularization: 1000
 
+1) Polynomial degree: 2
+
+2) Interactions: False (so not considering interactions led to better performance than taking them into account)
+
+3) Alpha for regularization: 1000
 
 I saw a very small improvement in the model; test MSE went from 0.41129 in the baseline model to 0.41114 in the final model. While this is a step in the right direction, there is definitely still room for improvement, and it might be worth reexamining what features I want to include in the model in the future.
 
