@@ -1,6 +1,6 @@
 # What Factors Influence Recipe Ratings?
 
-By Emily Lin, linemily@umich.edu
+### By Emily Lin, linemily@umich.edu
 ---
 
 ## Introduction
