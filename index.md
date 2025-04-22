@@ -25,15 +25,19 @@ I then hypothesized that the type of meal (breakfast, lunch, dinner, dessert), f
 
 Below is a depiction of the first five rows of the cleaned dataframe:
 
-<iframe src="assets/clean-df-head.html" width="800" height="400" frameborder="0">
+<iframe 
+src="assets/clean-df-head.html" 
+width="800" 
+height="600" 
+frameborder="0">
 </iframe>
-
 
 After cleaning the data, I performed EDA on the recipes dataset. I analyzed the distributions of the 'avg_ratings" and 'n_steps' columns and made the following observations: 
 
 The vast majority of recipes earned a 5 rating, meaning that there is likely to be less data/less reliable data showing what sort of recipes receive very low ratings (below 3 stars).
 
 Below is a graph of the distribution of the 'avg_ratings' column.
+
  <iframe
  src="assets/rating-dist.html"
  width="800"
@@ -42,6 +46,7 @@ Below is a graph of the distribution of the 'avg_ratings' column.
  ></iframe>
 
 Below is a graph of the distribution of the 'n_steps' column. We see a strong right skew with most recipes being between 3-20 steps, so this indicated that it might be worth binning the number of steps to make a recipe, with larger bin lengths for higher numbers of steps.
+
  <iframe
  src="assets/steps-dist.html"
  width="800"
